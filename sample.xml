@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="lang.xsl"?>
+<code><code><expr><word><chars>﻿#!/usr/bin/env</chars></word> <word><chars>parser</chars></word></expr>
+<comment>## комментарии начининаются с символов ## или #! и следуют до конца строки</comment>
+<comment>## все символы комментариев полностью игнорируются </comment>
+<comment>## включая также завершающий \</comment>
+
+<comment>## пустые строки также игнорируются</comment>
+
+<comment>## числовые константы:</comment>
+<expr><word><long>67</long></word>	<comment>## целое</comment></expr>
+<expr><word><long>0x18</long></word>	<comment>## целое в шестнадцатиричном виде</comment></expr>
+<expr><word><long>056</long></word>	<comment>## целое в восьмиричном виде</comment></expr>
+<expr><word><long>-11</long></word> <word><long>-062</long></word> <word><long>-0x11fe</long></word> <comment>## целые со знаком</comment></expr>
+
+<comment>#####</comment>
+<expr><word><double>0.34</double></word>	<comment>## дробное с фикс. запятой</comment></expr>
+<expr><word><double>1.2E+2</double></word>	<comment>## дробное с плавающей запятой</comment></expr>
+<expr><word><double>-652.765</double></word> <word><double>-255.11E-12</double></word> <comment>## дробные со знаком</comment></expr>
+
+
+<comment>#! строковые константы</comment>
+<expr><word><string>'<chars>это константа</chars>'</string></word></expr>
+<expr><word><string>'<chars>esc-символы C : </chars><esc>\r</esc><chars> </chars><esc>\n</esc><chars> </chars><esc>\t</esc><chars> </chars><esc>\v</esc><chars> </chars><esc>\b</esc><chars> </chars><esc>\f</esc><chars> </chars><esc>\a</esc><chars> </chars><esc>\e</esc>'</string></word></expr>
+<expr><word><string>'<chars>маскирование символов языка </chars><esc>\\</esc><chars> </chars><esc>\"</esc><chars> </chars><esc>\{</esc><chars> </chars><esc>\}</esc><chars> </chars><esc>\[</esc><chars> </chars><esc>\]</esc><chars> </chars><esc>\'</esc>'</string></word></expr>
+<expr><word><string>'<chars>ascii коды символов: </chars><esc>\033</esc><chars> </chars><esc>\x1f</esc><chars> </chars><esc>\45</esc>'</string></word></expr>
+<expr><word><string>'<chars>или устоявшиеся имена: </chars><esc>\&amp;ESC;</esc><chars> </chars><esc>\&amp;amp;</esc>'</string></word></expr>
+
+<comment>#! программа состоит из выражений</comment>
+<expr><word><chars>expression</chars></word></expr>
+<expr><word><chars>expression2</chars></word> </expr>; <expr><word><chars>expression3</chars></word> 	<comment>## выражения разделяются ; или \n</comment></expr>
+
+<comment>#! каждое выражение состоит из слов разделяемых пробелами</comment>
+<expr><word><chars>word</chars></word></expr>
+<expr><word><chars>word2</chars></word> 	<word><chars>word3</chars></word></expr>
+
+<comment>#! первое слово выражения интерпретируются как имя исполняемой команды, остальные - как её аргументы</comment>
+<expr><word><chars>command</chars></word> <word><chars>arg1</chars></word> <word><chars>arg2</chars></word></expr>; <expr><word><chars>command2</chars></word> <word><long>1</long></word> <word><long>2</long></word> <word><long>3</long></word></expr>
+<expr><word><chars>command3</chars></word> <word><chars>arg</chars></word> <word><chars>arg</chars></word> <word><chars>arg</chars></word></expr>
+
+<expr><print>#?&gt;<chars>При интерпретации
+этот текст будет выведен
+как есть на консоль</chars>&lt;?#</print></expr>
+
+<comment>#! выражения группируются в блоки-списки заключенные в {}</comment>
+<expr><word><chars>this</chars></word> <word><chars>is</chars></word> <word><chars>a</chars></word> <word><chars>list</chars></word> <word><list>{
+	<expr><word><chars>one</chars></word> <word><chars>two</chars></word></expr>
+	<expr><word><long>3</long></word> <word><long>4</long></word></expr>
+<expr></expr>}</list></word></expr>
+<comment>#! списки могут быть вложенными</comment>
+<expr><word><chars>nested</chars></word> <word><chars>lists</chars></word> <word><chars>are</chars></word> <word><list>{ <expr><word><long>1</long></word> <word><long>2</long></word></expr>
+  <expr><word><long>3</long></word> <word><long>4</long></word> <word><list>{ <expr><word><chars>nested</chars></word> <word><chars>a</chars></word> <word><chars>b</chars></word> </expr>}</list></word></expr>
+<expr></expr>}</list></word></expr>
+
+<comment>#! макросы начинаются с символа #</comment>
+<comment>#! в качестве аргументов им передаются слова выражения как текст</comment>
+<comment>#! макросы раскрываются от конца выражения к началу (справа налево)</comment>
+<expr><word><chars>command</chars></word> <word><chars>whith</chars></word> <word><macro>#<word><chars>macro</chars></word></macro></word> <word><chars>subcommand</chars></word> <word><chars>arg</chars></word> <comment>#! в #macro будут переданны аргументы 'subcommand' 'arg'</comment></expr>
+
+
+<comment>#! переменные</comment>
+<expr><word><var>$<word><chars>varname</chars></word></var></word>		<comment>## подстановка значения переменной</comment></expr>
+<expr><word><var>$<word><chars>varname</chars></word>(<word><chars>index</chars></word>)</var></word> 	<comment>## подстановка значения элемента массива</comment></expr>
+<expr><word><var>$<word><chars>varname</chars></word>(<word><chars>index</chars></word> <word><chars>index2</chars></word>)</var></word> <comment>## массивы могут быть многоуровневыми</comment></expr>
+<expr><word><var>$(<word><chars>varname</chars></word>)</var></word>		<comment>## допустимая форма</comment></expr>
+<expr><word><var>$(<word><chars>varname</chars></word> <word><chars>index</chars></word>)</var></word>	<comment>## также допустимо</comment></expr>
+
+<comment>## имена самих переменных могут передаваться через другие переменные</comment>
+<expr><word><var>$<word><var>$<word><chars>varname</chars></word></var></word></var></word></expr>
+<expr><word><var>$(<word><var>$<word><chars>varname</chars></word>(<word><chars>index</chars></word>)</var></word> <word><chars>index2</chars></word>)</var></word></expr>
+
+
+<comment>## подстановка команд</comment>
+<expr><word><chars>set</chars></word> <word><chars>x</chars></word>(<word><chars>i</chars></word>) <word><command>[ <expr><word><chars>command</chars></word> <word><chars>arg</chars></word> <word><chars>arg2</chars></word> </expr>]</command></word></expr>
+<expr><word><command>[ <expr><word><chars>get</chars></word> <word><chars>x</chars></word>(<word><chars>i</chars></word>) </expr>]</command></word>		<comment>## аналог $x(i)</comment></expr>
+<expr><word><command>[ <expr><word><chars>get</chars></word> <word><chars>x</chars></word> <word><chars>i</chars></word> </expr>]</command></word>		<comment>##</comment></expr>
+
+<expr><word><chars>set</chars></word> <word><chars>foo</chars></word> <word><command>[ <expr><word><chars>func</chars></word> <word><list>{ <expr><word><chars>arg1</chars></word> <word><chars>arg2</chars></word> <word><chars>argN</chars></word> </expr>}</list></word> <word><list>{ <expr><word><chars>body</chars></word> </expr>}</list></word> <word><chars>curry1</chars></word> <word><chars>curry2</chars></word> </expr>]</command></word></expr>
+<expr><word><chars>proc</chars></word> <word><chars>foo</chars></word> <word><list>{<expr><word><chars>arg1</chars></word> <word><chars>arg2</chars></word> <word><chars>argN</chars></word></expr>}</list></word> <word><list>{ <expr><word><chars>body</chars></word> </expr>}</list></word> <word><chars>curry1</chars></word> <word><chars>curry2</chars></word></expr>
+
+<expr><word><chars>foreach</chars></word> <word><list>{<expr><word><chars>a</chars></word> <word><chars>b</chars></word></expr>}</list></word> <word><list>{<expr><word><long>1</long></word> <word><long>2</long></word> <word><long>3</long></word> <word><long>4</long></word> <word><long>5</long></word> <word><long>6</long></word> <word><long>7</long></word> <word><long>8</long></word> <word><long>9</long></word> <word><long>10</long></word></expr>}</list></word> <word><list>{
+	<expr><word><chars>echo</chars></word> <word><var>$<word><chars>_</chars></word></var></word> 	<comment>#! {1 2} {3 4} ...</comment></expr>
+	<expr><word><chars>echo</chars></word> <word><var>$<word><chars>a</chars></word></var></word>		<comment>#! {1} {3}</comment></expr>
+<expr></expr>}</list></word></expr>
+
+<expr></expr></code></code>

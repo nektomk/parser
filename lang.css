@@ -1,0 +1,54 @@
+/* стили для преобразования в html */
+.code {
+}
+
+/* первое слово в выражении интерпретируются как имя команды или ключ кассива
+*/
+.expr>.word:first-child {
+	font-weight: bold;
+}
+
+/* числовые константы
+*/
+.numeric {
+	color: darkgreen;
+}
+.double {
+	color: darkgreen;
+}
+.long {
+	color: darkgreen;
+}
+
+/*  строковые константы
+*/
+.string {
+	color: darkblue;
+}
+
+.esc {
+	color: green;
+}
+
+/* списки {} */
+.list:hover {
+	background: yellow;
+}
+
+.command:hover {
+	background: green;
+}
+
+.macro {
+	color: brown;
+}
+
+.print {
+	color: darkblue;
+	font-style: italic;
+}
+/* комментарии */
+.comment {
+	color: grey;
+	font-style: italic;
+}

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="cp-1251"?>
+<?xml-stylesheet type="text/xsl" href="lang.xsl"?>
+<code><expr><word><list>{<word><long>1</long></word> <word><long>2</long></word> <word><chars>hello</chars></word>   }</list></word></expr></code>
